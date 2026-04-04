@@ -7,11 +7,12 @@ const gameboard = () => {
 		board[i] = undefined;
 	}
 
-	const updateBoard = (target, player) => {
-		board[target] = player;
+	const updateBoard = (target, playerMarker) => {
+		board[target] = playerMarker;
 	};
 
 	const getBoard = () => board;
+
 	const availableBoard = () => {
 		return board
 			.map((box, idx) => (box === undefined ? idx : -1))
@@ -39,21 +40,17 @@ function gameController(playerOne, playerTwo) {
 
 	let activePlayer = players[0];
 
-	const swithPlayer = () => {
+	const switchPlayer = () => {
 		activePlayer =
 			activePlayer === activePlayer[0] ? activePlayer[1] : activePlayer[0];
 	};
 
 	const getActivePlayer = () => activePlayer;
 
-	console.log(board.getBoard());
-	console.log(board.availableBoard());
-	board.updateBoard(1, 1);
-	console.log(board.getBoard());
-	console.log(board.availableBoard());
-	board.updateBoard(2, 2);
-	console.log(board.getBoard());
-	console.log(board.availableBoard());
+	const randomizeMove = () =>
+		Math.floor(Math.random() * board.availableBoard().length);
+
+	const playerMove = () => Number(prompt('Enter your move!'));
 }
 
 const game = gameController();

@@ -48,14 +48,15 @@ function gameController(playerOne, playerTwo) {
 	const getActivePlayer = () => activePlayer;
 
 	const randomizeMove = () =>
-		Math.floor(Math.random() * board.availableBoard().length);
+		board.availableBoard()[
+			Math.floor(Math.random() * board.availableBoard().length)
+		];
 
 	const playerMove = () => Number(prompt('Enter your move!'));
 
 	while (board.availableBoard().length > 0) {
 		board.updateBoard(playerMove(), 1);
-		console.log(board.getBoard());
-		console.log(board.availableBoard());
+
 		board.updateBoard(randomizeMove(), 2);
 		console.log(board.getBoard());
 		console.log(board.availableBoard());

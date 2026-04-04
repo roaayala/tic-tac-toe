@@ -12,8 +12,13 @@ const gameboard = () => {
 	};
 
 	const getBoard = () => board;
+	const availableBoxes = () => {
+		return board
+			.map((box, idx) => (box === undefined ? idx : -1))
+			.filter((idx) => idx !== -1);
+	};
 
-	return { updateBoard, getBoard };
+	return { updateBoard, availableBoxes, getBoard };
 };
 
 function gameController(playerOne, playerTwo) {
@@ -42,8 +47,13 @@ function gameController(playerOne, playerTwo) {
 	const getActivePlayer = () => activePlayer;
 
 	console.log(board.getBoard());
+	console.log(board.availableBoxes());
 	board.updateBoard(1, 1);
 	console.log(board.getBoard());
+	console.log(board.availableBoxes());
+	board.updateBoard(2, 2);
+	console.log(board.getBoard());
+	console.log(board.availableBoxes());
 }
 
 const game = gameController();

@@ -51,6 +51,15 @@ function gameController(playerOne, playerTwo) {
 		Math.floor(Math.random() * board.availableBoard().length);
 
 	const playerMove = () => Number(prompt('Enter your move!'));
+
+	while (board.availableBoard().length > 0) {
+		board.updateBoard(playerMove(), 1);
+		console.log(board.getBoard());
+		console.log(board.availableBoard());
+		board.updateBoard(randomizeMove(), 2);
+		console.log(board.getBoard());
+		console.log(board.availableBoard());
+	}
 }
 
 const game = gameController();

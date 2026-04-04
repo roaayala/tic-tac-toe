@@ -7,8 +7,13 @@ const gameboard = () => {
 		board[i] = undefined;
 	}
 
+	const updateBoard = (target, player) => {
+		board[target] = player;
+	};
+
 	const getBoard = () => board;
-	console.log(getBoard());
+
+	return { updateBoard, getBoard };
 };
 
 function gameController(playerOne, playerTwo) {
@@ -35,6 +40,10 @@ function gameController(playerOne, playerTwo) {
 	};
 
 	const getActivePlayer = () => activePlayer;
+
+	console.log(board.getBoard());
+	board.updateBoard(1, 1);
+	console.log(board.getBoard());
 }
 
 const game = gameController();

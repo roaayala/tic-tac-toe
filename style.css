@@ -91,6 +91,19 @@ body {
 
 button {
 	cursor: pointer;
+	background-color: transparent;
+	font-weight: 700;
+}
+
+.btn {
+	padding: 0.25rem 1rem;
+	border-radius: 0.25rem;
+	border: 1px solid black;
+}
+
+.btn-primary {
+	background-color: black;
+	color: white;
 }
 
 /* Utilities */

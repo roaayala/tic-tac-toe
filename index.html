@@ -47,9 +47,40 @@
 			</div>
 
 			<div class="game none">
-				<h2>The Game</h2>
-
-				<button class="btn" id="backToGameSetup">Back To Game Setup</button>
+				<header><h2>The Game</h2></header>
+				<main>
+					<header>
+						<div class="players-board">
+							<!-- player one -->
+							<div class="player-info">
+								<h3 class="player-name">
+									Player 1 (<span id="playerOneBehavior">Human</span>)
+								</h3>
+								<p class="player-score">
+									Score: <span id="playerOneScore">0</span>
+								</p>
+							</div>
+							<!-- tie score -->
+							<div class="tie-score-info">
+								<p>Tie score: <span id="tie-score">0</span></p>
+							</div>
+							<!-- player two -->
+							<div class="player-info">
+								<h3 class="player-name">
+									Player 2 (<span id="playerTwoBehavior">Computer</span>)
+								</h3>
+								<p class="player-score">
+									Score: <span id="playerTwoScore">0</span>
+								</p>
+							</div>
+						</div>
+					</header>
+					<main id="#board"></main>
+					<footer><button class="btn" id="resetGame">Reset</button></footer>
+				</main>
+				<footer>
+					<button class="btn" id="backToGameSetup">Back To Game Setup</button>
+				</footer>
 			</div>
 		</div>
 		<script src="./index.js"></script>

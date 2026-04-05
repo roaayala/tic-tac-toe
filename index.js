@@ -26,6 +26,7 @@ function gameController(playerOne, playerTwo) {
 	playerOne = 'Player One' ? 'Player One' : 'Computer';
 	playerTwo = 'Player Two' ? 'Player Two' : 'Computer';
 	const board = gameboard();
+	const gameUi = gameUI();
 
 	const players = [
 		{
@@ -64,6 +65,27 @@ function gameController(playerOne, playerTwo) {
 	// }
 }
 
-function gameUI() {}
+function gameUI() {
+	const gameSetup = document.querySelector('.game-setup');
+	const game = document.querySelector('.game');
 
-// const game = gameController();
+	const startGameButton = document.querySelector('#startGame');
+	const resetGameSetupButton = document.querySelector('#resetGameSetup');
+	const backToGameSetupButton = document.querySelector('#backToGameSetup');
+
+	startGameButton.addEventListener('click', () => {
+		const playerOne = document.querySelector('#playerOne').value;
+		const playerTwo = document.querySelector('#playerTwo').value;
+		if (!(playerOne === 'computer' && playerTwo === 'computer')) {
+			gameSetup.classList.toggle('none');
+			game.classList.toggle('none');
+		}
+	});
+
+	backToGameSetupButton.addEventListener('click', () => {
+		gameSetup.classList.toggle('none');
+		game.classList.toggle('none');
+	});
+}
+
+const game = gameController();

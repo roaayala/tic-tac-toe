@@ -22,28 +22,44 @@ const gameboard = () => {
 	return { updateBoard, availableBoard, getBoard };
 };
 
-function gameController(playerOne, playerTwo) {
-	playerOne = 'Player One' ? 'Player One' : 'Computer';
-	playerTwo = 'Player Two' ? 'Player Two' : 'Computer';
+function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	const board = gameboard();
-	const gameUi = gameUI();
+	const ui = gameUI();
+
+	ui.startGame(() => {
+		if (
+			!(
+				ui.getPlayersBehavior().p1 === 'computer' &&
+				ui.getPlayersBehavior().p2 === 'computer'
+			)
+		) {
+			ui.tooggleScreens();
+		}
+	});
+
+	ui.backToGameSetup(() => {
+		ui.tooggleScreens();
+	});
+
+	ui.resetGameSetup();
 
 	const players = [
 		{
 			name: playerOne,
-			symbol: 1,
+			marker: 'O',
+			isComputer: false,
 		},
 		{
 			name: playerTwo,
-			symbol: 2,
+			marker: 'X',
+			isComputer: false,
 		},
 	];
 
 	let activePlayer = players[0];
 
 	const switchPlayer = () => {
-		activePlayer =
-			activePlayer === activePlayer[0] ? activePlayer[1] : activePlayer[0];
+		activePlayer = activePlayer === players[0] ? players[1] : players[0];
 	};
 
 	const getActivePlayer = () => activePlayer;
@@ -69,23 +85,44 @@ function gameUI() {
 	const gameSetup = document.querySelector('.game-setup');
 	const game = document.querySelector('.game');
 
-	const startGameButton = document.querySelector('#startGame');
-	const resetGameSetupButton = document.querySelector('#resetGameSetup');
-	const backToGameSetupButton = document.querySelector('#backToGameSetup');
+	const startGame = (func) => {
+		document.querySelector('#startGame').addEventListener('click', () => {
+			func();
+		});
+	};
 
-	startGameButton.addEventListener('click', () => {
-		const playerOne = document.querySelector('#playerOne').value;
-		const playerTwo = document.querySelector('#playerTwo').value;
-		if (!(playerOne === 'computer' && playerTwo === 'computer')) {
-			gameSetup.classList.toggle('none');
-			game.classList.toggle('none');
-		}
-	});
+	const resetGameSetup = () => {
+		document.querySelector('#resetGameSetup').addEventListener('click', () => {
+			document.querySelector('#playerOne').value = 'player';
+			document.querySelector('#playerTwo').value = 'player';
+		});
+	};
 
-	backToGameSetupButton.addEventListener('click', () => {
+	const backToGameSetup = (func) => {
+		document.querySelector('#backToGameSetup').addEventListener('click', () => {
+			func();
+		});
+	};
+
+	const tooggleScreens = () => {
 		gameSetup.classList.toggle('none');
 		game.classList.toggle('none');
-	});
+	};
+
+	const getPlayersBehavior = () => {
+		return {
+			p1: document.querySelector('#playerOne').value,
+			p2: document.querySelector('#playerTwo').value,
+		};
+	};
+
+	return {
+		startGame,
+		resetGameSetup,
+		backToGameSetup,
+		tooggleScreens,
+		getPlayersBehavior,
+	};
 }
 
 const game = gameController();

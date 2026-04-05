@@ -8,6 +8,46 @@
 		<link rel="stylesheet" href="./style.css" />
 	</head>
 	<body>
+		<div class="container">
+			<h1>Tic Tac Toe</h1>
+
+			<div class="game-setup">
+				<h2>Game Setup</h2>
+
+				<div class="player-setup">
+					<header><h3>Player Setup</h3></header>
+
+					<main>
+						<div class="player-setup-row">
+							<label for="playerOne">Player One</label>
+							<select name="playerOne" id="playerOne">
+								<option value="player">Player</option>
+								<option value="computer">Computer</option>
+							</select>
+						</div>
+
+						<div class="player-setup-row">
+							<p>VS</p>
+						</div>
+
+						<div class="player-setup-row">
+							<label for="playerTwo">Player Two</label>
+							<select name="playerTwo" id="playerTwo">
+								<option value="player">Player</option>
+								<option value="computer">Computer</option>
+							</select>
+						</div>
+					</main>
+
+					<footer>
+						<button class="btn btn-primary" id="startGame">Start Game</button>
+						<button class="btn" id="resetPlayerSetup">Reset Setup</button>
+					</footer>
+				</div>
+			</div>
+
+			<div class="game"></div>
+		</div>
 		<script src="./index.js"></script>
 	</body>
 </html>

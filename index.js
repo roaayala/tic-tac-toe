@@ -23,7 +23,7 @@ const gameboard = () => {
 };
 
 function gameController(playerOne, playerTwo) {
-	playerOne = 'Player One';
+	playerOne = 'Player One' ? 'Player One' : 'Computer';
 	playerTwo = 'Player Two' ? 'Player Two' : 'Computer';
 	const board = gameboard();
 
@@ -54,14 +54,16 @@ function gameController(playerOne, playerTwo) {
 
 	const playerMove = () => Number(prompt('Enter your move!'));
 
-	while (board.availableBoard().length > 0) {
-		const theMove = playerMove();
-		if (board.getBoard()[theMove] === undefined) {
-			board.updateBoard(theMove, 1);
-			board.updateBoard(randomizeMove(), 2);
-		}
-		console.log(board.getBoard());
-	}
+	// while (board.availableBoard().length > 0) {
+	// 	const theMove = playerMove();
+	// 	if (board.getBoard()[theMove] === undefined) {
+	// 		board.updateBoard(theMove, 1);
+	// 		board.updateBoard(randomizeMove(), 2);
+	// 	}
+	// 	console.log(board.getBoard());
+	// }
 }
 
-const game = gameController();
+function gameUI() {}
+
+// const game = gameController();

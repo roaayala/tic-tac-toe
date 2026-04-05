@@ -26,28 +26,6 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	const board = gameboard();
 	const ui = gameUI();
 
-	ui.startGame(() => {
-		if (
-			!(
-				ui.getPlayersBehavior().p1 === 'computer' &&
-				ui.getPlayersBehavior().p2 === 'computer'
-			)
-		) {
-			ui.tooggleScreens();
-		}
-	});
-
-	ui.resetGameSetup(() => {
-		ui.resetPlayersBehavior();
-	});
-
-	ui.backToGameSetup(() => {
-		ui.resetPlayersBehavior();
-		ui.tooggleScreens();
-	});
-
-	ui.resetPlayersBehavior();
-
 	const players = [
 		{
 			name: playerOne,
@@ -84,6 +62,28 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	// 	}
 	// 	console.log(board.getBoard());
 	// }
+
+	ui.startGame(() => {
+		if (
+			!(
+				ui.getPlayersBehavior().p1 === 'computer' &&
+				ui.getPlayersBehavior().p2 === 'computer'
+			)
+		) {
+			ui.tooggleScreens();
+		}
+	});
+
+	ui.resetGameSetup(() => {
+		ui.resetPlayersBehavior();
+	});
+
+	ui.backToGameSetup(() => {
+		ui.resetPlayersBehavior();
+		ui.tooggleScreens();
+	});
+
+	ui.resetPlayersBehavior();
 }
 
 function gameUI() {

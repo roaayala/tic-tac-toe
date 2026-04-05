@@ -75,7 +75,25 @@ h6 {
 	isolation: isolate;
 }
 
-/*  */
+/* base */
+body {
+	font-family: sans-serif;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+}
+
+.container {
+	padding: 1rem;
+}
+
+/* button */
+
+button {
+	cursor: pointer;
+}
+
+/* Utilities */
 .none {
 	display: none;
 }

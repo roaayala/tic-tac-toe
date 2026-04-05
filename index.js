@@ -37,11 +37,16 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		}
 	});
 
+	ui.resetGameSetup(() => {
+		ui.resetPlayersBehavior();
+	});
+
 	ui.backToGameSetup(() => {
+		ui.resetPlayersBehavior();
 		ui.tooggleScreens();
 	});
 
-	ui.resetGameSetup();
+	ui.resetPlayersBehavior();
 
 	const players = [
 		{
@@ -91,10 +96,9 @@ function gameUI() {
 		});
 	};
 
-	const resetGameSetup = () => {
+	const resetGameSetup = (func) => {
 		document.querySelector('#resetGameSetup').addEventListener('click', () => {
-			document.querySelector('#playerOne').value = 'player';
-			document.querySelector('#playerTwo').value = 'player';
+			func();
 		});
 	};
 
@@ -107,6 +111,11 @@ function gameUI() {
 	const tooggleScreens = () => {
 		gameSetup.classList.toggle('none');
 		game.classList.toggle('none');
+	};
+
+	const resetPlayersBehavior = () => {
+		document.querySelector('#playerOne').value = 'player';
+		document.querySelector('#playerTwo').value = 'player';
 	};
 
 	const getPlayersBehavior = () => {
@@ -122,6 +131,7 @@ function gameUI() {
 		backToGameSetup,
 		tooggleScreens,
 		getPlayersBehavior,
+		resetPlayersBehavior,
 	};
 }
 

@@ -55,11 +55,12 @@ function gameController(playerOne, playerTwo) {
 	const playerMove = () => Number(prompt('Enter your move!'));
 
 	while (board.availableBoard().length > 0) {
-		board.updateBoard(playerMove(), 1);
-
-		board.updateBoard(randomizeMove(), 2);
+		const theMove = playerMove();
+		if (board.getBoard()[theMove] === undefined) {
+			board.updateBoard(theMove, 1);
+			board.updateBoard(randomizeMove(), 2);
+		}
 		console.log(board.getBoard());
-		console.log(board.availableBoard());
 	}
 }
 

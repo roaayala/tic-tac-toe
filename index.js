@@ -84,6 +84,8 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	});
 
 	ui.resetPlayersBehavior();
+
+	ui.renderBoard(board.getBoard());
 }
 
 function gameUI() {
@@ -108,6 +110,22 @@ function gameUI() {
 		});
 	};
 
+	const renderBoard = (array) => {
+		const board = document.querySelector('#board');
+
+		board.innerHTML = '';
+		console.log(array);
+
+		array.forEach((marker) => {
+			const cell = document.createElement('div');
+			cell.classList.add('cell');
+
+			cell.textContent = marker === undefined ? '' : marker;
+
+			board.appendChild(cell);
+		});
+	};
+
 	const tooggleScreens = () => {
 		gameSetup.classList.toggle('none');
 		game.classList.toggle('none');
@@ -129,6 +147,7 @@ function gameUI() {
 		startGame,
 		resetGameSetup,
 		backToGameSetup,
+		renderBoard,
 		tooggleScreens,
 		getPlayersBehavior,
 		resetPlayersBehavior,

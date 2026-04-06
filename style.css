@@ -87,6 +87,14 @@ body {
 	padding: 1rem;
 }
 
+@media (min-width: 576px) {
+	.container {
+		padding: 0;
+		width: 33.75rem;
+		margin: 0 auto;
+	}
+}
+
 /* button */
 
 button {

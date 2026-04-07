@@ -67,7 +67,11 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 			ui.tooggleScreens();
 			ui.renderBoard(board.getBoard());
 
-			ui.boardClick((event) => console.log(event));
+			ui.boardClick((event) => {
+				const index = event.getAttribute('index');
+				event.textContent = getActivePlayer().marker;
+				switchPlayer();
+			});
 		}
 	});
 

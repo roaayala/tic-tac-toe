@@ -85,7 +85,7 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 	ui.resetPlayersBehavior();
 
-	ui.renderBoard(board.getBoard());
+	ui.renderBoard(board.getBoard(), ui.targetCell);
 }
 
 function gameUI() {
@@ -110,20 +110,25 @@ function gameUI() {
 		});
 	};
 
-	const renderBoard = (array) => {
+	const targetCell = (cell) => {
+		cell.addEventListener('click', (event) => {
+			console.log(event.target);
+		});
+	};
+
+	const renderBoard = (array, target) => {
 		const board = document.querySelector('#board');
 
 		board.innerHTML = '';
-		console.log(array);
 
 		array.forEach((marker, idx) => {
 			const cell = document.createElement('div');
 			cell.classList.add('cell');
 			cell.setAttribute('index', idx);
-
 			cell.textContent = marker === undefined ? '' : marker;
 
 			board.appendChild(cell);
+			target(cell);
 		});
 	};
 
@@ -148,6 +153,7 @@ function gameUI() {
 		startGame,
 		resetGameSetup,
 		backToGameSetup,
+		targetCell,
 		renderBoard,
 		tooggleScreens,
 		getPlayersBehavior,

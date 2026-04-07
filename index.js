@@ -61,8 +61,13 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		if (
 			!(playerOneBehavior === 'computer' && playerTwoBehavior === 'computer')
 		) {
-			ui.renderBoard(board.getBoard(), ui.targetCell);
+			players[0].isComputer = playerOneBehavior === 'computer' ? true : false;
+			players[1].isComputer = playerTwoBehavior === 'computer' ? true : false;
+
 			ui.tooggleScreens();
+			ui.renderBoard(board.getBoard());
+
+			ui.boardClick((event) => console.log(event));
 		}
 	});
 
@@ -100,13 +105,7 @@ function gameUI() {
 		});
 	};
 
-	const targetCell = (cell) => {
-		cell.addEventListener('click', (event) => {
-			console.log(event.target);
-		});
-	};
-
-	const renderBoard = (array, target) => {
+	const renderBoard = (array) => {
 		const board = document.querySelector('#board');
 
 		board.innerHTML = '';
@@ -118,7 +117,13 @@ function gameUI() {
 			cell.textContent = marker === undefined ? '' : marker;
 
 			board.appendChild(cell);
-			target(cell);
+			// target(cell);
+		});
+	};
+
+	const boardClick = (func) => {
+		document.querySelector('#board').addEventListener('click', (event) => {
+			func(event.target);
 		});
 	};
 
@@ -143,8 +148,9 @@ function gameUI() {
 		startGame,
 		resetGameSetup,
 		backToGameSetup,
-		targetCell,
+
 		renderBoard,
+		boardClick,
 		tooggleScreens,
 		getPlayersBehavior,
 		resetPlayersBehavior,

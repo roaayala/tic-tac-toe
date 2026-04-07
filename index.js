@@ -54,22 +54,14 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 	const playerMove = () => Number(prompt('Enter your move!'));
 
-	// while (board.availableBoard().length > 0) {
-	// 	const theMove = playerMove();
-	// 	if (board.getBoard()[theMove] === undefined) {
-	// 		board.updateBoard(theMove, 1);
-	// 		board.updateBoard(randomizeMove(), 2);
-	// 	}
-	// 	console.log(board.getBoard());
-	// }
-
 	ui.startGame(() => {
+		const { p1: playerOneBehavior, p2: playerTwoBehavior } =
+			ui.getPlayersBehavior();
+
 		if (
-			!(
-				ui.getPlayersBehavior().p1 === 'computer' &&
-				ui.getPlayersBehavior().p2 === 'computer'
-			)
+			!(playerOneBehavior === 'computer' && playerTwoBehavior === 'computer')
 		) {
+			ui.renderBoard(board.getBoard(), ui.targetCell);
 			ui.tooggleScreens();
 		}
 	});
@@ -84,8 +76,6 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	});
 
 	ui.resetPlayersBehavior();
-
-	ui.renderBoard(board.getBoard(), ui.targetCell);
 }
 
 function gameUI() {

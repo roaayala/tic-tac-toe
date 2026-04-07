@@ -116,9 +116,10 @@ function gameUI() {
 		board.innerHTML = '';
 		console.log(array);
 
-		array.forEach((marker) => {
+		array.forEach((marker, idx) => {
 			const cell = document.createElement('div');
 			cell.classList.add('cell');
+			cell.setAttribute('index', idx);
 
 			cell.textContent = marker === undefined ? '' : marker;
 

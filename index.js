@@ -68,8 +68,10 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 			ui.renderBoard(board.getBoard());
 
 			ui.boardClick((event) => {
-				const index = event.getAttribute('index');
-				event.textContent = getActivePlayer().marker;
+				const index = Number(event.getAttribute('index'));
+				const marker = (event.textContent = getActivePlayer().marker);
+				board.updateBoard(index, marker);
+				console.log(board.getBoard());
 				switchPlayer();
 			});
 		}

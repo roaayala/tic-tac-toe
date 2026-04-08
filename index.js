@@ -68,6 +68,17 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 	const playerMove = () => Number(prompt('Enter your move!'));
 
+	const resetRound = () => {
+		resetActivePlayer();
+		board.resetBoard();
+	};
+
+	const resetGame = () => {
+		resetRound();
+		ui.resetPlayersBehavior();
+		ui.tooggleScreens();
+	};
+
 	ui.startGame(() => {
 		const { p1: playerOneBehavior, p2: playerTwoBehavior } =
 			ui.getPlayersBehavior();
@@ -80,6 +91,10 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 			ui.tooggleScreens();
 			board.generateBoard();
 			ui.renderBoard(board.getBoard());
+
+			ui.updateRoundInfo((element) => {
+				element.textContent = `Player One's Turn`;
+			});
 		}
 	});
 
@@ -102,10 +117,7 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	});
 
 	ui.backToGameSetup(() => {
-		resetActivePlayer();
-		board.resetBoard();
-		ui.resetPlayersBehavior();
-		ui.tooggleScreens();
+		resetGame();
 	});
 
 	ui.resetPlayersBehavior();

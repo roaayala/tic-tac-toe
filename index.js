@@ -70,9 +70,15 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 			ui.boardClick((event) => {
 				const index = Number(event.getAttribute('index'));
 				const marker = (event.textContent = getActivePlayer().marker);
+
 				board.updateBoard(index, marker);
-				console.log(board.getBoard());
 				switchPlayer();
+				ui.updateRoundInfo((element) => {
+					element.textContent =
+						getActivePlayer().name === 'Player One'
+							? `Player One's Turn`
+							: `Player Two's Turn`;
+				});
 			});
 		}
 	});
@@ -109,6 +115,10 @@ function gameUI() {
 		document.querySelector('#backToGameSetup').addEventListener('click', () => {
 			func();
 		});
+	};
+
+	const updateRoundInfo = (func) => {
+		func(document.querySelector('#roundInfo'));
 	};
 
 	const renderBoard = (array) => {
@@ -154,7 +164,7 @@ function gameUI() {
 		startGame,
 		resetGameSetup,
 		backToGameSetup,
-
+		updateRoundInfo,
 		renderBoard,
 		boardClick,
 		tooggleScreens,

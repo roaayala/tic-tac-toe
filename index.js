@@ -55,6 +55,12 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 	const getActivePlayer = () => activePlayer;
 
+	const resetActivePlayer = () => (activePlayer = players[0]);
+
+	const updatePlayerBehavior = () => {
+		players[0].isComputer = playerOneBehavior === 'computer' ? true : false;
+		players[1].isComputer = playerTwoBehavior === 'computer' ? true : false;
+	};
 	const randomizeMove = () =>
 		board.availableBoard()[
 			Math.floor(Math.random() * board.availableBoard().length)
@@ -69,8 +75,7 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		if (
 			!(playerOneBehavior === 'computer' && playerTwoBehavior === 'computer')
 		) {
-			players[0].isComputer = playerOneBehavior === 'computer' ? true : false;
-			players[1].isComputer = playerTwoBehavior === 'computer' ? true : false;
+			updatePlayerBehavior();
 
 			ui.tooggleScreens();
 			board.generateBoard();
@@ -97,7 +102,7 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	});
 
 	ui.backToGameSetup(() => {
-		activePlayer = players[0];
+		resetActivePlayer();
 		board.resetBoard();
 		ui.resetPlayersBehavior();
 		ui.tooggleScreens();

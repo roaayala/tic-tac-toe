@@ -1,14 +1,20 @@
 const gameboard = () => {
 	const row = 3;
 	const column = 3;
-	const board = [];
+	let board = [];
 
-	for (let i = 0; i < row * column; i++) {
-		board[i] = undefined;
-	}
+	const generateBoard = () => {
+		for (let i = 0; i < row * column; i++) {
+			board[i] = undefined;
+		}
+	};
 
 	const updateBoard = (target, playerMarker) => {
 		board[target] = playerMarker;
+	};
+
+	const resetBoard = () => {
+		board = [];
 	};
 
 	const getBoard = () => board;
@@ -19,7 +25,9 @@ const gameboard = () => {
 			.filter((idx) => idx !== -1);
 	};
 
-	return { updateBoard, availableBoard, getBoard };
+	generateBoard();
+
+	return { generateBoard, updateBoard, resetBoard, availableBoard, getBoard };
 };
 
 function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
@@ -65,22 +73,23 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 			players[1].isComputer = playerTwoBehavior === 'computer' ? true : false;
 
 			ui.tooggleScreens();
+			board.generateBoard();
 			ui.renderBoard(board.getBoard());
-
-			ui.boardClick((event) => {
-				const index = Number(event.getAttribute('index'));
-				const marker = (event.textContent = getActivePlayer().marker);
-
-				board.updateBoard(index, marker);
-				switchPlayer();
-				ui.updateRoundInfo((element) => {
-					element.textContent =
-						getActivePlayer().name === 'Player One'
-							? `Player One's Turn`
-							: `Player Two's Turn`;
-				});
-			});
 		}
+	});
+
+	ui.boardClick((event) => {
+		const index = Number(event.getAttribute('index'));
+		const marker = (event.textContent = getActivePlayer().marker);
+
+		board.updateBoard(index, marker);
+		switchPlayer();
+		ui.updateRoundInfo((element) => {
+			element.textContent =
+				getActivePlayer().name === 'Player One'
+					? `Player One's Turn`
+					: `Player Two's Turn`;
+		});
 	});
 
 	ui.resetGameSetup(() => {
@@ -88,6 +97,8 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	});
 
 	ui.backToGameSetup(() => {
+		activePlayer = players[0];
+		board.resetBoard();
 		ui.resetPlayersBehavior();
 		ui.tooggleScreens();
 	});

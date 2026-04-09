@@ -91,9 +91,19 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		);
 
 		ui.renderBoard(board.getBoard());
+
 		switchPlayer();
+
+		if (getActivePlayer().isComputer) {
+			checkComputerTurn();
+		}
 	};
-	const checkComputerTurn = (index) => {};
+
+	const checkComputerTurn = () => {
+		setTimeout(() => {
+			playRound(randomizeMove());
+		}, 500);
+	};
 
 	ui.startGame(() => {
 		const { p1: playerOneBehavior, p2: playerTwoBehavior } =

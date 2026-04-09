@@ -100,16 +100,20 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		const index = Number(event.getAttribute('index'));
 		const marker = getActivePlayer().marker;
 
-		board.updateBoard(index, marker);
+		// prevent current player update board that already filled
 
-		ui.updateRoundInfo(
-			getActivePlayer().name === 'Player One'
-				? `Player One's Turn`
-				: `Player Two's Turn`,
-		);
+		if (board.getBoard()[index] === undefined) {
+			board.updateBoard(index, marker);
 
-		ui.renderBoard(board.getBoard());
-		switchPlayer();
+			ui.updateRoundInfo(
+				getActivePlayer().name === 'Player One'
+					? `Player Two's Turn`
+					: `Player One's Turn`,
+			);
+
+			ui.renderBoard(board.getBoard());
+			switchPlayer();
+		}
 	});
 
 	ui.resetGameSetup(() => {

@@ -119,6 +119,8 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 			ui.renderBoard(board.getBoard());
 
 			ui.updateRoundInfo(`Player One's Turn`);
+
+			checkComputerTurn();
 		}
 	});
 

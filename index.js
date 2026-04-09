@@ -61,6 +61,7 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		players[0].isComputer = playerOneBehavior === 'computer' ? true : false;
 		players[1].isComputer = playerTwoBehavior === 'computer' ? true : false;
 	};
+
 	const randomizeMove = () =>
 		board.availableBoard()[
 			Math.floor(Math.random() * board.availableBoard().length)
@@ -78,6 +79,21 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		ui.resetPlayersBehavior();
 		ui.tooggleScreens();
 	};
+
+	const playRound = (index) => {
+		const marker = getActivePlayer().marker;
+		board.updateBoard(index, marker);
+
+		ui.updateRoundInfo(
+			getActivePlayer().name === 'Player One'
+				? `Player Two's Turn`
+				: `Player One's Turn`,
+		);
+
+		ui.renderBoard(board.getBoard());
+		switchPlayer();
+	};
+	const checkComputerTurn = (index) => {};
 
 	ui.startGame(() => {
 		const { p1: playerOneBehavior, p2: playerTwoBehavior } =
@@ -98,21 +114,10 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 	ui.boardClick((event) => {
 		const index = Number(event.getAttribute('index'));
-		const marker = getActivePlayer().marker;
 
 		// prevent current player update board that already filled
-
 		if (board.getBoard()[index] === undefined) {
-			board.updateBoard(index, marker);
-
-			ui.updateRoundInfo(
-				getActivePlayer().name === 'Player One'
-					? `Player Two's Turn`
-					: `Player One's Turn`,
-			);
-
-			ui.renderBoard(board.getBoard());
-			switchPlayer();
+			playRound(index);
 		}
 	});
 

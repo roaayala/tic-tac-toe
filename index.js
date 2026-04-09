@@ -94,15 +94,15 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 		switchPlayer();
 
-		if (getActivePlayer().isComputer) {
-			checkComputerTurn();
-		}
+		checkComputerTurn();
 	};
 
 	const checkComputerTurn = () => {
-		setTimeout(() => {
-			playRound(randomizeMove());
-		}, 500);
+		if (getActivePlayer().isComputer === true) {
+			setTimeout(() => {
+				playRound(randomizeMove());
+			}, 500);
+		}
 	};
 
 	ui.startGame(() => {

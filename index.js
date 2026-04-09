@@ -57,7 +57,7 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 	const resetActivePlayer = () => (activePlayer = players[0]);
 
-	const updatePlayerBehavior = () => {
+	const updatePlayerBehavior = (playerOneBehavior, playerTwoBehavior) => {
 		players[0].isComputer = playerOneBehavior === 'computer' ? true : false;
 		players[1].isComputer = playerTwoBehavior === 'computer' ? true : false;
 	};
@@ -86,30 +86,30 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		if (
 			!(playerOneBehavior === 'computer' && playerTwoBehavior === 'computer')
 		) {
-			updatePlayerBehavior();
+			updatePlayerBehavior(playerOneBehavior, playerTwoBehavior);
 
 			ui.tooggleScreens();
 			board.generateBoard();
 			ui.renderBoard(board.getBoard());
 
-			ui.updateRoundInfo((element) => {
-				element.textContent = `Player One's Turn`;
-			});
+			ui.updateRoundInfo(`Player One's Turn`);
 		}
 	});
 
 	ui.boardClick((event) => {
 		const index = Number(event.getAttribute('index'));
-		const marker = (event.textContent = getActivePlayer().marker);
+		const marker = getActivePlayer().marker;
 
 		board.updateBoard(index, marker);
+
+		ui.updateRoundInfo(
+			getActivePlayer().name === 'Player One'
+				? `Player One's Turn`
+				: `Player Two's Turn`,
+		);
+
+		ui.renderBoard(board.getBoard());
 		switchPlayer();
-		ui.updateRoundInfo((element) => {
-			element.textContent =
-				getActivePlayer().name === 'Player One'
-					? `Player One's Turn`
-					: `Player Two's Turn`;
-		});
 	});
 
 	ui.resetGameSetup(() => {
@@ -145,8 +145,8 @@ function gameUI() {
 		});
 	};
 
-	const updateRoundInfo = (func) => {
-		func(document.querySelector('#roundInfo'));
+	const updateRoundInfo = (text) => {
+		document.querySelector('#roundInfo').textContent = text;
 	};
 
 	const renderBoard = (array) => {

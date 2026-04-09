@@ -67,8 +67,6 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 			Math.floor(Math.random() * board.availableBoard().length)
 		];
 
-	const playerMove = () => Number(prompt('Enter your move!'));
-
 	const resetRound = () => {
 		resetActivePlayer();
 		board.resetBoard();
@@ -115,8 +113,12 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 			updatePlayerBehavior(playerOneBehavior, playerTwoBehavior);
 
 			ui.tooggleScreens();
+
 			board.generateBoard();
+
 			ui.renderBoard(board.getBoard());
+
+			ui.updatePlayersBehavior(players[0].isComputer, players[1].isComputer);
 
 			ui.updateRoundInfo(`Player One's Turn`);
 
@@ -209,7 +211,15 @@ function gameUI() {
 		};
 	};
 
+	const updatePlayersBehavior = (playerOne, playerTwo) => {
+		document.querySelector('#playerOneBehavior').textContent =
+			playerOne === false ? 'H' : 'C';
+		document.querySelector('#playerTwoBehavior').textContent =
+			playerTwo === false ? 'H' : 'C';
+	};
+
 	return {
+		updatePlayersBehavior,
 		startGame,
 		resetGameSetup,
 		backToGameSetup,

@@ -135,6 +135,41 @@ h3 {
 	flex-direction: column;
 	gap: 0.5rem;
 }
+
+/* game */
+.players-board {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	margin-bottom: 0.5rem;
+}
+
+.game main {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.game > footer {
+	display: flex;
+	flex-direction: column;
+}
+
+.game main footer {
+	display: flex;
+	flex-direction: column;
+}
+
+#roundInfo {
+	text-align: center;
+}
+
+#board {
+	gap: 0;
+	margin-bottom: 0;
+}
+
 /* button */
 
 button {

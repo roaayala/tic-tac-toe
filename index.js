@@ -128,7 +128,15 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 			});
 		});
 
-		console.log(getActivePlayer().name, checkWin);
+		if (checkWin) {
+			console.log(getActivePlayer().name + 'Won');
+			return;
+		}
+
+		if (board.availableBoard().length === 0) {
+			console.log('Ties');
+			return;
+		}
 
 		switchPlayer();
 		checkComputerTurn();

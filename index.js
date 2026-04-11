@@ -95,6 +95,9 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		resetRound();
 		ui.resetPlayersBehavior();
 		ui.tooggleScreens();
+		players.forEach((player) => {
+			player.moves = [];
+		});
 	};
 
 	const playRound = (index) => {
@@ -159,11 +162,13 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 	ui.boardClick((event) => {
 		const index = Number(event.getAttribute('index'));
+		console.log(getActivePlayer().moves);
 
 		// prevent current player update board that already filled
 		if (board.getBoard()[index] === undefined) {
 			playRound(index);
 		}
+		console.log(getActivePlayer().moves);
 	});
 
 	ui.resetGameSetup(() => {

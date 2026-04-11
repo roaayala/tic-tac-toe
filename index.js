@@ -120,8 +120,17 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 		ui.renderBoard(board.getBoard());
 
-		switchPlayer();
+		const checkWin = board.winningPattern.some((pattern) => {
+			// evaluate every pattern
+			return pattern.every((value) => {
+				// every value within pattern break apart then use .includes to check is every value found withing the .moves
+				return getActivePlayer().moves.includes(value);
+			});
+		});
 
+		console.log(getActivePlayer().name, checkWin);
+
+		switchPlayer();
 		checkComputerTurn();
 	};
 
@@ -164,13 +173,11 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 	ui.boardClick((event) => {
 		const index = Number(event.getAttribute('index'));
-		console.log(getActivePlayer().moves);
 
 		// prevent current player update board that already filled
 		if (board.getBoard()[index] === undefined) {
 			playRound(index);
 		}
-		console.log(getActivePlayer().moves);
 	});
 
 	ui.resetGameSetup(() => {

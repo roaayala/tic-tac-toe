@@ -108,9 +108,7 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		const marker = getActivePlayer().marker;
 
 		// record moves
-		players[
-			players.findIndex((index) => index === getActivePlayer())
-		].moves.push(index);
+		recordPlayerMove(index);
 
 		board.updateBoard(index, marker);
 
@@ -135,11 +133,11 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		}
 	};
 
-	// const recordPlayerMove = (player, move) => {
-	// 	console.log(getActivePlayer());
-	// };
-
-	// recordPlayerMove();
+	const recordPlayerMove = (move) => {
+		players[
+			players.findIndex((index) => index === getActivePlayer())
+		].moves.push(move);
+	};
 
 	ui.startGame(() => {
 		const { p1: playerOneBehavior, p2: playerTwoBehavior } =

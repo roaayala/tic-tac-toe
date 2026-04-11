@@ -91,13 +91,17 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		board.resetBoard();
 	};
 
-	const resetGame = () => {
-		resetRound();
-		ui.resetPlayersBehavior();
-		ui.tooggleScreens();
+	const resetPlayersMoves = () => {
 		players.forEach((player) => {
 			player.moves = [];
 		});
+	};
+
+	const resetGame = () => {
+		resetRound();
+		resetPlayersMoves();
+		ui.resetPlayersBehavior();
+		ui.tooggleScreens();
 	};
 
 	const playRound = (index) => {

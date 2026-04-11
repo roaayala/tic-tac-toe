@@ -3,6 +3,17 @@ const gameboard = () => {
 	const column = 3;
 	let board = [];
 
+	const winningPattern = [
+		[0, 1, 2],
+		[3, 4, 5],
+		[6, 7, 8],
+		[0, 3, 6],
+		[1, 4, 7],
+		[2, 5, 8],
+		[0, 4, 8],
+		[2, 4, 6],
+	];
+
 	const generateBoard = () => {
 		for (let i = 0; i < row * column; i++) {
 			board[i] = undefined;
@@ -27,7 +38,14 @@ const gameboard = () => {
 
 	generateBoard();
 
-	return { generateBoard, updateBoard, resetBoard, availableBoard, getBoard };
+	return {
+		generateBoard,
+		updateBoard,
+		resetBoard,
+		availableBoard,
+		getBoard,
+		winningPattern,
+	};
 };
 
 function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
@@ -38,12 +56,13 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		{
 			name: playerOne,
 			marker: 'O',
-			isComputer: false,
+			moves: [],
 		},
 		{
 			name: playerTwo,
 			marker: 'X',
 			isComputer: false,
+			moves: [],
 		},
 	];
 
@@ -80,6 +99,12 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 	const playRound = (index) => {
 		const marker = getActivePlayer().marker;
+
+		// record moves
+		players[
+			players.findIndex((index) => index === getActivePlayer())
+		].moves.push(index);
+
 		board.updateBoard(index, marker);
 
 		ui.updateRoundInfo(
@@ -102,6 +127,12 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 			}, 500);
 		}
 	};
+
+	// const recordPlayerMove = (player, move) => {
+	// 	console.log(getActivePlayer());
+	// };
+
+	// recordPlayerMove();
 
 	ui.startGame(() => {
 		const { p1: playerOneBehavior, p2: playerTwoBehavior } =

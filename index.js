@@ -52,6 +52,8 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	const board = gameboard();
 	const ui = gameUI();
 
+	let isGameOver = false;
+
 	const players = [
 		{
 			name: playerOne,
@@ -105,6 +107,8 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	};
 
 	const playRound = (index) => {
+		if (isGameOver) return;
+
 		const marker = getActivePlayer().marker;
 
 		// record moves
@@ -130,11 +134,13 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 		if (checkWin) {
 			console.log(getActivePlayer().name + 'Won');
+			isGameOver = true;
 			return;
 		}
 
 		if (board.availableBoard().length === 0) {
 			console.log('Ties');
+			isGameOver = true;
 			return;
 		}
 
@@ -157,6 +163,8 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	};
 
 	ui.startGame(() => {
+		isGameOver = false;
+
 		const { p1: playerOneBehavior, p2: playerTwoBehavior } =
 			ui.getPlayersBehavior();
 

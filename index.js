@@ -184,6 +184,10 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	ui.startGame(() => {
 		isGameOver = false;
 
+		ui.playerOneScore(scores.playerOne);
+		ui.playerTwoScore(scores.playerTwo);
+		ui.tieScore(scores.tie);
+
 		const { p1: playerOneBehavior, p2: playerTwoBehavior } =
 			ui.getPlayersBehavior();
 
@@ -238,6 +242,9 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	});
 
 	ui.backToGameSetup(() => {
+		scores.playerOne = 0;
+		scores.playerTwo = 0;
+		scores.tie = 0;
 		resetGame();
 	});
 

@@ -196,6 +196,23 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		}
 	});
 
+	ui.startNewRound(() => {
+		// reset player moves
+		resetPlayersMoves();
+		// reset active player
+		resetActivePlayer();
+		// reset board
+		board.resetBoard();
+		// generate board
+		board.generateBoard();
+		// render board
+		ui.renderBoard(board.getBoard());
+		// update round info to player one
+		ui.updateRoundInfo(`Player One's Turn`);
+		// check computer
+		checkComputerTurn();
+	});
+
 	ui.resetGameSetup(() => {
 		ui.resetPlayersBehavior();
 	});
@@ -279,7 +296,14 @@ function gameUI() {
 			playerTwo === false ? 'H' : 'C';
 	};
 
+	const startNewRound = (func) => {
+		document.querySelector('#startNewRound').addEventListener('click', () => {
+			func();
+		});
+	};
+
 	return {
+		startNewRound,
 		updatePlayersBehavior,
 		startGame,
 		resetGameSetup,

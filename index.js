@@ -141,6 +141,16 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		if (checkWin) {
 			ui.updateRoundInfo(getActivePlayer().name + ' Won!');
 
+			if (getActivePlayer().name === 'Player One') {
+				scores.playerOne++;
+				ui.playerOneScore(scores.playerOne);
+			}
+
+			if (getActivePlayer().name === 'Player Two') {
+				scores.playerTwo++;
+				ui.playerTwoScore(scores.playerTwo);
+			}
+
 			isGameOver = true;
 			return;
 		}
@@ -148,7 +158,6 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		if (board.availableBoard().length === 0) {
 			ui.updateRoundInfo('Ties!');
 			scores.tie++;
-			console.log(scores.tie);
 			ui.tieScore(scores.tie);
 			isGameOver = true;
 			return;

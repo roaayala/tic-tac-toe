@@ -68,6 +68,12 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		},
 	];
 
+	const scores = {
+		playerOne: 0,
+		playerTwo: 0,
+		tie: 0,
+	};
+
 	let activePlayer = players[0];
 
 	const switchPlayer = () => {
@@ -134,12 +140,16 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 
 		if (checkWin) {
 			ui.updateRoundInfo(getActivePlayer().name + ' Won!');
+
 			isGameOver = true;
 			return;
 		}
 
 		if (board.availableBoard().length === 0) {
 			ui.updateRoundInfo('Ties!');
+			scores.tie++;
+			console.log(scores.tie);
+			ui.tieScore(scores.tie);
 			isGameOver = true;
 			return;
 		}
@@ -197,6 +207,7 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 	});
 
 	ui.startNewRound(() => {
+		isGameOver = false;
 		// reset player moves
 		resetPlayersMoves();
 		// reset active player
@@ -311,7 +322,7 @@ function gameUI() {
 	};
 
 	const tieScore = (score) => {
-		document.querySelector('#tieScore').textContent = score;
+		document.querySelector('#tie-score').textContent = score;
 	};
 
 	return {

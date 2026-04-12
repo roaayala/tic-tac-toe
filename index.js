@@ -127,19 +127,19 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two') {
 		const checkWin = board.winningPattern.some((pattern) => {
 			// evaluate every pattern
 			return pattern.every((value) => {
-				// every value within pattern break apart then use .includes to check is every value found withing the .moves
+				// every value within pattern break apart then use .includes to check is every value found within the .moves
 				return getActivePlayer().moves.includes(value);
 			});
 		});
 
 		if (checkWin) {
-			console.log(getActivePlayer().name + 'Won');
+			ui.updateRoundInfo(getActivePlayer().name + ' Won!');
 			isGameOver = true;
 			return;
 		}
 
 		if (board.availableBoard().length === 0) {
-			console.log('Ties');
+			ui.updateRoundInfo('Ties!');
 			isGameOver = true;
 			return;
 		}

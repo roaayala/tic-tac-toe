@@ -302,7 +302,22 @@ function gameUI() {
 		});
 	};
 
+	const playerOneScore = (score) => {
+		document.querySelector('#playerOneScore').textContent = score;
+	};
+
+	const playerTwoScore = (score) => {
+		document.querySelector('#playerTwoScore').textContent = score;
+	};
+
+	const tieScore = (score) => {
+		document.querySelector('#tieScore').textContent = score;
+	};
+
 	return {
+		playerOneScore,
+		playerTwoScore,
+		tieScore,
 		startNewRound,
 		updatePlayersBehavior,
 		startGame,
